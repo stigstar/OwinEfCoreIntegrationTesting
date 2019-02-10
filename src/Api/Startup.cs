@@ -14,5 +14,10 @@ namespace Api
             config.MapHttpAttributeRoutes();
             app.UseWebApi(config);
         }
+
+        protected virtual void Bootstrap()
+        {
+            
+        }
     }
 }
