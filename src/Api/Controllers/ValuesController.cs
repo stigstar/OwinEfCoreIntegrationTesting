@@ -1,22 +1,25 @@
-﻿using System;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
 using Data;
-using Microsoft.Owin;
+using Data.Model;
+using Microsoft.EntityFrameworkCore;
 namespace Api.Controllers
 {
     public class ValuesController : ApiController
     {
-        private MyContext _myContext;
+        private readonly MyContext _myContext;
 
         public ValuesController()
         {
             _myContext = new MyContext();
         }
 
-        public IHttpActionResult GetValues(int foo) 
+        public async Task<Value> GetValue(int id)
         {
-            _myContext
+            var value = await _myContext.Values.FirstOrDefaultAsync(x => x.Id == id);
+            return value;
         }  
     }
 }

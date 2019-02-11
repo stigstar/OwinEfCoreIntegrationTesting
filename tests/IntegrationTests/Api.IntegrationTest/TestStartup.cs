@@ -1,15 +1,16 @@
+using Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.IntegrationTest
 {
     public class TestStartup : Startup
     {
-        public static MyContect MyContect { get; set; }
+        public static MyContext MyContext { get; set; }
 
         protected override void Bootstrap()
         {
-            var options = DbContextOptionsBuilder<MyContect>();
-            options.UseInMemory
+            var options = new DbContextOptionsBuilder<MyContext>();
+            options.UseInMemoryDatabase("MyDatabase");
         }
     }
 }

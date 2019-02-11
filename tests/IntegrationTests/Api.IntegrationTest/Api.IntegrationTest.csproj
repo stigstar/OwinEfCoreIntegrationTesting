@@ -145,6 +145,10 @@
       <Project>{71BF3A7B-FF44-4476-BA33-36338A676D8B}</Project>
       <Name>Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Data\Data.csproj">
+      <Project>{4491CDC5-F77F-45D5-9ED5-FD91BF3E6438}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
