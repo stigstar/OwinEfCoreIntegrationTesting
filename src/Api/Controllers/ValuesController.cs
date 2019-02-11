@@ -11,9 +11,9 @@ namespace Api.Controllers
     {
         private readonly MyContext _myContext;
 
-        public ValuesController()
+        public ValuesController(MyContext myContext)
         {
-            _myContext = new MyContext();
+            _myContext = myContext;
         }
 
         [HttpGet]

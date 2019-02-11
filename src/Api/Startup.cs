@@ -28,9 +28,9 @@ namespace Api
         protected virtual IWindsorContainer Bootstrap()
         {
             var continer = new WindsorContainer();
-            continer.Register(Classes.FromThisAssembly().BasedOn<ApiController>());
+            continer.Register(Classes.FromThisAssembly().BasedOn<ApiController>().LifestyleTransient());
             var options = new DbContextOptionsBuilder<MyContext>().UseSqlServer("MyConnection").Options;
-            continer.Register(Component.For<MyContext>().UsingFactoryMethod(c => new MyContext(options)));
+            continer.Register(Component.For<MyContext>().UsingFactoryMethod(c => new MyContext(options)).LifestyleTransient());
             return continer;
         }
     }

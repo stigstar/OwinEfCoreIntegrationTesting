@@ -1,4 +1,5 @@
 using System.Web.Http;
+using Api.Controllers;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Data;
@@ -13,9 +14,10 @@ namespace Api.IntegrationTest
         protected override IWindsorContainer Bootstrap()
         {
             var continer = new WindsorContainer();
-            continer.Register(Classes.FromThisAssembly().BasedOn<ApiController>());
+            continer.Register(Component.For<ValuesController>().ImplementedBy<ValuesController>().LifestyleTransient());
             var options = new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("MyConnection").Options;
-            continer.Register(Component.For<MyContext>().UsingFactoryMethod(c => new MyContext(options)));
+            continer.Register(Component.For<MyContext>().UsingFactoryMethod(
+                c => new MyContext(options)).LifestyleTransient());
             MyContext = continer.Resolve<MyContext>();
             return continer;
         }
