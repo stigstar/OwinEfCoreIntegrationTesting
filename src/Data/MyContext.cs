@@ -9,6 +9,9 @@ namespace Data
         {
             
         }
+        public MyContext(DbContextOptions<MyContext> options) : base(options)
+        {
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

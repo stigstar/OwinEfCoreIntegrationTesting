@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Data.Model;
 using Microsoft.Owin.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,15 +19,18 @@ namespace Api.IntegrationTest.Controllers
         }
 
         [TestMethod]
-        public void Get_WhenValueExists_200()
+        public async Task Get_WhenValueExists_200()
         {
             //arrange
-
+            TestStartup.MyContext.Values.Add(new Value {Epicness = 1337});
+            await TestStartup.MyContext.SaveChangesAsync();
 
             //act
-            var result = TestServer.CreateRequest("values/1");
+            var result = await TestServer.CreateRequest("values/1").GetAsync();
 
             //assert
+            result.EnsureSuccessStatusCode();
+
         }
     }
 }

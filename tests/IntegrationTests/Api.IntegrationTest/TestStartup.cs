@@ -9,8 +9,9 @@ namespace Api.IntegrationTest
 
         protected override void Bootstrap()
         {
-            var options = new DbContextOptionsBuilder<MyContext>();
-            options.UseInMemoryDatabase("MyDatabase");
+            var dbContextOptionsBuilder = new DbContextOptionsBuilder<MyContext>();
+            dbContextOptionsBuilder.UseInMemoryDatabase("MyDatabase");
+            MyContext = new MyContext(dbContextOptionsBuilder.Options);
         }
     }
 }
