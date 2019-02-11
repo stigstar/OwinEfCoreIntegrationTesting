@@ -20,7 +20,6 @@ namespace Api.IntegrationTest.Controllers
             TestServer = TestServer.Create<TestStartup>();
             TestServer.BaseAddress = new Uri("http://localhost");
             MyContext = TestStartup.MyContext;
-
         }
 
         [TestMethod]
