@@ -22,7 +22,7 @@ namespace Api.IntegrationTest.Controllers
         public async Task Get_WhenValueExists_200()
         {
             //arrange
-            TestStartup.MyContext.Values.Add(new Value {Epicness = 1337});
+            TestStartup.MyContext.Values.Add(new Value { Id = 1, Epicness = 1337 });
             await TestStartup.MyContext.SaveChangesAsync();
 
             //act

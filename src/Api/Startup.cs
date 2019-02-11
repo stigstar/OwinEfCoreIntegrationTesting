@@ -1,4 +1,10 @@
 ﻿using System.Web.Http;
+using Api.Infrastructure;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
+using Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Owin;
 using Owin;
 
@@ -14,12 +20,18 @@ namespace Api
             config.MapHttpAttributeRoutes();
             app.UseWebApi(config);
 
-            Bootstrap();
+            var container = Bootstrap();
+            var httpDependencyResolver = new WindsorDependencyResolver(container);
+            config.DependencyResolver = httpDependencyResolver;
         }
 
-        protected virtual void Bootstrap()
+        protected virtual IWindsorContainer Bootstrap()
         {
-            
+            var continer = new WindsorContainer();
+            continer.Register(Classes.FromThisAssembly().BasedOn<ApiController>());
+            var options = new DbContextOptionsBuilder<MyContext>().UseSqlServer("MyConnection").Options;
+            continer.Register(Component.For<MyContext>().UsingFactoryMethod(c => new MyContext(options)));
+            return continer;
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
 using Data;
 using Data.Model;
 using Microsoft.EntityFrameworkCore;
 namespace Api.Controllers
 {
+
+    [RoutePrefix("values")]
     public class ValuesController : ApiController
     {
         private readonly MyContext _myContext;
@@ -16,9 +16,11 @@ namespace Api.Controllers
             _myContext = new MyContext();
         }
 
+        [HttpGet]
+        [Route("{id}")]
         public async Task<Value> GetValue(int id)
         {
-            var value = await _myContext.Values.FirstOrDefaultAsync(x => x.Id == id);
+            var value = _myContext.Values.FirstOrDefaultAsync().Result;
             return value;
         }  
     }
